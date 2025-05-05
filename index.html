@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Laporan Keuangan - PT Ecek Ecek</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f9f9f9;
+      color: #333;
+    }
+    header {
+      background-color: #004080;
+      color: white;
+      padding: 1rem 2rem;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 1.8rem;
+    }
+    header p {
+      margin: 0.2rem 0 0;
+      font-style: italic;
+    }
+    nav {
+      background-color: #003366;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    nav button {
+      background: none;
+      border: none;
+      color: #ddd;
+      padding: 1rem 1.5rem;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background-color 0.3s, color 0.3s;
+      flex: 1 1 auto;
+      max-width: 220px;
+    }
+    nav button:hover,
+    nav button.active {
+      background-color: #0059b3;
+      color: white;
+      font-weight: bold;
+    }
+    main {
+      max-width: 900px;
+      margin: 2rem auto;
+      background: white;
+      padding: 1.5rem 2rem;
+      border-radius: 6px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    section {
+      display: none;
+    }
+    section.active {
+      display: block;
+    }
+    h2 {
+      color: #004080;
+      margin-bottom: 1rem;
+      border-bottom: 2px solid #004080;
+      padding-bottom: 0.3rem;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+    table th, table td {
+      border: 1px solid #ccc;
+      padding: 0.5rem 0.8rem;
+      text-align: right;
+      vertical-align: middle;
+    }
+    table th {
+      background-color: #e6f0ff;
+      text-align: center;
+    }
+    table td.desc {
+      text-align: left;
+    }
+    input.number-input {
+      width: 100%;
+      box-sizing: border-box;
+      font-size: 1rem;
+      border: none;
+      background: transparent;
+      text-align: right;
+      padding: 0;
+      margin: 0;
+      font-family: inherit;
+      outline: none;
+      -moz-appearance: textfield;
+    }
+    input.number-input::-webkit-inner-spin-button,
+    input.number-input::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    @media (max-width: 600px) {
+      nav button {
+        max-width: 100%;
+        flex-basis: 100%;
+      }
+      table th, table td {
+        font-size: 0.9rem;
+        padding: 0.4rem 0.6rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>PT Ecek Ecek</h1>
+    <p>Laporan Keuangan Tahun 2024</p>
+  </header>
+  <nav>
+    <button class="tab-button active" data-target="rugi-laba">Laporan Rugi Laba</button>
+    <button class="tab-button" data-target="neraca">Neraca</button>
+    <button class="tab-button" data-target="arus-kas">Laporan Arus Kas</button>
+    <button class="tab-button" data-target="perubahan-modal">Perubahan Modal</button>
+  </nav>
+  <main>
+    <section id="rugi-laba" class="active">
+      <h2>Laporan Rugi Laba</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Keterangan</th>
+            <th>Jumlah (Rp)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="desc">Pendapatan Penjualan</td><td><input type="number" min="0" class="number-input" id="pendapatanPenjualan" value="0" /></td></tr>
+          <tr><td class="desc">Harga Pokok Penjualan</td><td><input type="number" min="0" class="number-input" id="hargaPokokPenjualan" value="0" /></td></tr>
+          <tr><td class="desc"><strong>Laba Kotor</strong></td><td><span id="labaKotor">0</span></td></tr>
+          <tr><td class="desc">Beban Operasi</td><td><input type="number" min="0" class="number-input" id="bebanOperasi" value="0" /></td></tr>
+          <tr><td class="desc">Laba Usaha</td><td><span id="labaUsaha">0</span></td></tr>
+          <tr><td class="desc">Pendapatan Lainnya</td><td><input type="number" min="0" class="number-input" id="pendapatanLainnya" value="0" /></td></tr>
+          <tr><td class="desc">Beban Lainnya</td><td><input type="number" min="0" class="number-input" id="bebanLainnya" value="0" /></td></tr>
+          <tr><td class="desc"><strong>Laba Bersih Sebelum Pajak</strong></td><td><span id="labaBersihSebelumPajak">0</span></td></tr>
+          <tr><td class="desc">Pajak Penghasilan</td><td><input type="number" min="0" class="number-input" id="pajakPenghasilan" value="0" /></td></tr>
+          <tr><td class="desc"><strong>Laba Bersih</strong></td><td><span id="labaBersih">0</span></td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section id="neraca">
+      <h2>Neraca</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Aset</th>
+            <th>Jumlah (Rp)</th>
+            <th>Kewajiban dan Ekuitas</th>
+            <th>Jumlah (Rp)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="desc">Kas dan Setara Kas</td>
+            <td><input type="number" min="0" class="number-input" id="kasNeraca" value="0" /></td>
+            <td class="desc">Hutang Usaha</td>
+            <td><input type="number" min="0" class="number-input" id="hutangUsaha" value="0" /></td>
+          </tr>
+          <tr>
+            <td class="desc">Piutang Usaha</td>
+            <td><input type="number" min="0" class="number-input" id="piutangUsaha" value="0" /></td>
+            <td class="desc">Hutang Bank Jangka Panjang</td>
+            <td><input type="number" min="0" class="number-input" id="hutangBank" value="0" /></td>
+          </tr>
+          <tr>
+            <td class="desc">Persediaan</td>
+            <td><input type="number" min="0" class="number-input" id="persediaan" value="0" /></td>
+            <td class="desc">Ekuitas Pemilik</td>
+            <td><span id="ekuitasPemilik">0</span></td>
+          </tr>
+          <tr>
+            <td class="desc">Aset Tetap (Netto)</td>
+            <td><input type="number" min="0" class="number-input" id="asetTetap" value="0" /></td>
+            <td class="desc"></td>
+            <td></td>
+          </tr>
+          <tr>
+            <th>Total Aset</th>
+            <th><span id="totalAset">0</span></th>
+            <th>Total Kewajiban & Ekuitas</th>
+            <th><span id="totalKewajibanEkuitas">0</span></th>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+    <section id="arus-kas">
+      <h2>Laporan Arus Kas</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Keterangan</th>
+            <th>Jumlah (Rp)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="desc">Arus Kas dari Aktivitas Operasi</td><td><input type="number" class="number-input" id="arusKasOperasi" value="0" /></td></tr>
+          <tr><td class="desc">Arus Kas dari Aktivitas Investasi</td><td><input type="number" class="number-input" id="arusKasInvestasi" value="0" /></td></tr>
+          <tr><td class="desc">Arus Kas dari Aktivitas Pendanaan</td><td><input type="number" class="number-input" id="arusKasPendanaan" value="0" /></td></tr>
+          <tr><td class="desc"><strong>Kenaikan Bersih Kas</strong></td><td><span id="kenaikanBersihKas">0</span></td></tr>
+          <tr><td class="desc">Kas Awal Periode</td><td><input type="number" class="number-input" id="kasAwalPeriode" value="0" /></td></tr>
+          <tr><td class="desc"><strong>Kas Akhir Periode</strong></td><td><span id="kasAkhirPeriode">0</span></td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section id="perubahan-modal">
+      <h2>Laporan Perubahan Modal</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Keterangan</th>
+            <th>Jumlah (Rp)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="desc">Saldo Modal Awal</td><td><input type="number" min="0" class="number-input" id="saldoModalAwal" value="0" /></td></tr>
+          <tr><td class="desc">Laba Bersih</td><td><span id="labaBersihPerubahanModal">0</span></td></tr>
+          <tr><td class="desc">Prive / Penarikan Pemilik</td><td><input type="number" id="prive" class="number-input" value="0" min="0" /></td></tr>
+          <tr><td class="desc"><strong>Saldo Modal Akhir</strong></td><td><span id="saldoModalAkhir">0</span></td></tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+  <script>
+    const buttons = document.querySelectorAll('nav button');
+    const sections = document.querySelectorAll('main section');
+
+    buttons.forEach(button => {
+      button.addEventListener('click', () => {
+        buttons.forEach(btn => btn.classList.remove('active'));
+        sections.forEach(sec => sec.classList.remove('active'));
+        button.classList.add('active');
+        const target = button.getAttribute('data-target');
+        document.getElementById(target).classList.add('active');
+      });
+    });
+
+    // Helper: format number to Indonesian Rupiah format with thousands separators (no currency symbol)
+    function formatRupiah(value) {
+      if (isNaN(value) || value === null) return '0';
+      return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
+    // Helper: parse number input removing commas etc
+    function parseInputValue(val) {
+      let num = parseFloat(val);
+      if (isNaN(num)) return 0;
+      return num;
+    }
+
+    // IDs for inputs and outputs to update
+    const inputsRL = {
+      pendapatanPenjualan: document.getElementById('pendapatanPenjualan'),
+      hargaPokokPenjualan: document.getElementById('hargaPokokPenjualan'),
+      bebanOperasi: document.getElementById('bebanOperasi'),
+      pendapatanLainnya: document.getElementById('pendapatanLainnya'),
+      bebanLainnya: document.getElementById('bebanLainnya'),
+      pajakPenghasilan: document.getElementById('pajakPenghasilan')
+    };
+    const outputsRL = {
+      labaKotor: document.getElementById('labaKotor'),
+      labaUsaha: document.getElementById('labaUsaha'),
+      labaBersihSebelumPajak: document.getElementById('labaBersihSebelumPajak'),
+      labaBersih: document.getElementById('labaBersih'),
+    };
+
+    const inputsNeraca = {
+      kas: document.getElementById('kasNeraca'),
+      piutangUsaha: document.getElementById('piutangUsaha'),
+      persediaan: document.getElementById('persediaan'),
+      asetTetap: document.getElementById('asetTetap'),
+      hutangUsaha: document.getElementById('hutangUsaha'),
+      hutangBank: document.getElementById('hutangBank')
+    };
+    const outputsNeraca = {
+      ekuitasPemilik: document.getElementById('ekuitasPemilik'),
+      totalAset: document.getElementById('totalAset'),
+      totalKewajibanEkuitas: document.getElementById('totalKewajibanEkuitas')
+    };
+
+    const inputsArusKas = {
+      arusKasOperasi: document.getElementById('arusKasOperasi'),
+      arusKasInvestasi: document.getElementById('arusKasInvestasi'),
+      arusKasPendanaan: document.getElementById('arusKasPendanaan'),
+      kasAwalPeriode: document.getElementById('kasAwalPeriode')
+    };
+    const outputsArusKas = {
+      kenaikanBersihKas: document.getElementById('kenaikanBersihKas'),
+      kasAkhirPeriode: document.getElementById('kasAkhirPeriode'),
+    };
+
+    const inputsPerubahanModal = {
+      saldoModalAwal: document.getElementById('saldoModalAwal'),
+      prive: document.getElementById('prive')
+    };
+    const outputsPerubahanModal = {
+      labaBersih: document.getElementById('labaBersihPerubahanModal'),
+      saldoModalAkhir: document.getElementById('saldoModalAkhir')
+    };
+
+    function updateLabaRugi() {
+      // Calculate Laba Kotor
+      const pendapatan = parseInputValue(inputsRL.pendapatanPenjualan.value);
+      const hpp = parseInputValue(inputsRL.hargaPokokPenjualan.value);
+      const labaKotorVal = pendapatan - hpp;
+      outputsRL.labaKotor.textContent = formatRupiah(labaKotorVal);
+
+      // Laba Usaha
+      const bebanOperasiVal = parseInputValue(inputsRL.bebanOperasi.value);
+      const labaUsahaVal = labaKotorVal - bebanOperasiVal;
+      outputsRL.labaUsaha.textContent = formatRupiah(labaUsahaVal);
+
+      // Laba Bersih Sebelum Pajak
+      const pendapatanLainnyaVal = parseInputValue(inputsRL.pendapatanLainnya.value);
+      const bebanLainnyaVal = parseInputValue(inputsRL.bebanLainnya.value);
+      const labaBersihSebelumPajakVal = labaUsahaVal + pendapatanLainnyaVal - bebanLainnyaVal;
+      outputsRL.labaBersihSebelumPajak.textContent = formatRupiah(labaBersihSebelumPajakVal);
+
+      // Laba Bersih Setelah Pajak
+      const pajakVal = parseInputValue(inputsRL.pajakPenghasilan.value);
+      const labaBersihVal = labaBersihSebelumPajakVal - pajakVal;
+      outputsRL.labaBersih.textContent = formatRupiah(labaBersihVal);
+
+      return labaBersihVal;
+    }
+
+    function updatePerubahanModal(labaBersih) {
+      const saldoAwal = parseInputValue(inputsPerubahanModal.saldoModalAwal.value);
+      const prive = parseInputValue(inputsPerubahanModal.prive.value);
+      outputsPerubahanModal.labaBersih.textContent = formatRupiah(labaBersih);
+      const saldoAkhir = saldoAwal + labaBersih - prive;
+      outputsPerubahanModal.saldoModalAkhir.textContent = formatRupiah(saldoAkhir);
+      return saldoAkhir;
+    }
+
+    function updateNeraca(saldoModalAkhir) {
+      // Update Ekuitas Pemilik in Neraca with saldoModalAkhir from Perubahan Modal
+      outputsNeraca.ekuitasPemilik.textContent = formatRupiah(saldoModalAkhir);
+
+      // Calculate Total Aset
+      const kasVal = parseInputValue(inputsNeraca.kas.value);
+      const piutangVal = parseInputValue(inputsNeraca.piutangUsaha.value);
+      const persediaanVal = parseInputValue(inputsNeraca.persediaan.value);
+      const asetTetapVal = parseInputValue(inputsNeraca.asetTetap.value);
+      const totalAsetVal = kasVal + piutangVal + persediaanVal + asetTetapVal;
+      outputsNeraca.totalAset.textContent = formatRupiah(totalAsetVal);
+
+      // Calculate Total Kewajiban dan Ekuitas
+      const hutangUsahaVal = parseInputValue(inputsNeraca.hutangUsaha.value);
+      const hutangBankVal = parseInputValue(inputsNeraca.hutangBank.value);
+      const totalKewajibanEkuitasVal = hutangUsahaVal + hutangBankVal + saldoModalAkhir;
+      outputsNeraca.totalKewajibanEkuitas.textContent = formatRupiah(totalKewajibanEkuitasVal);
+    }
+
+    function updateArusKas(kasNeracaVal) {
+      // Calculate Kenaikan Bersih Kas
+      const arusOperasiVal = parseInputValue(inputsArusKas.arusKasOperasi.value);
+      const arusInvestasiVal = parseInputValue(inputsArusKas.arusKasInvestasi.value);
+      const arusPendanaanVal = parseInputValue(inputsArusKas.arusKasPendanaan.value);
+      const kenaikanBersihKasVal = arusOperasiVal + arusInvestasiVal + arusPendanaanVal;
+      outputsArusKas.kenaikanBersihKas.textContent = formatRupiah(kenaikanBersihKasVal);
+
+      // Kas Akhir Periode kalkulasi dari Kas Awal Periode + kenaikan bersih kas
+      const kasAwalVal = parseInputValue(inputsArusKas.kasAwalPeriode.value);
+      const kasAkhirVal = kasAwalVal + kenaikanBersihKasVal;
+      outputsArusKas.kasAkhirPeriode.textContent = formatRupiah(kasAkhirVal);
+
+      return kasAkhirVal;
+    }
+
+    // When Kas Akhir Periode changes, update Kas Neraca, and vice versa to keep sync.
+    // We will synchronize both ways carefully to avoid infinite loop.
+    let syncingKas = false;
+
+    function syncKas(kasFromArusKas) {
+      if (syncingKas) return;
+      syncingKas = true;
+      inputsNeraca.kas.value = Math.round(kasFromArusKas);
+      syncingKas = false;
+    }
+    function syncKasFromNeraca(kasFromNeraca) {
+      if (syncingKas) return;
+      syncingKas = true;
+      inputsArusKas.kasAwalPeriode.value = Math.round(kasFromNeraca);
+      syncingKas = false;
+    }
+
+    // Main update function call sequence
+    function updateAll() {
+      const labaBersih = updateLabaRugi();
+      const saldoModalAkhir = updatePerubahanModal(labaBersih);
+      updateNeraca(saldoModalAkhir);
+      const kasAkhirPeriode = updateArusKas();
+      syncKas(kasAkhirPeriode);
+    }
+
+    // Setup event listeners on inputs to trigger updateAll on change/input
+    function setupListeners() {
+      // Laporan Rugi Laba inputs
+      Object.values(inputsRL).forEach(input => {
+        input.addEventListener('input', updateAll);
+      });
+      // Neraca inputs except ekuitasPemilik which is output
+      Object.entries(inputsNeraca).forEach(([key, input]) => {
+        input.addEventListener('input', () => {
+          if (key === 'kas') {
+            // Sync kas to Arus Kas Kas Awal Periode
+            syncKasFromNeraca(parseInputValue(input.value));
+            updateAll(); // Recalculate after sync
+          } else {
+            updateAll();
+          }
+        });
+      });
+      // Arus Kas inputs
+      Object.values(inputsArusKas).forEach(input => {
+        input.addEventListener('input', () => {
+          updateAll();
+          // After updateArusKas, kas akhir periode is updated and synced to Neraca kas
+          const kasAkhirVal = parseInputValue(outputsArusKas.kasAkhirPeriode.textContent.replace(/,/g,''));
+          syncKas(kasAkhirVal);
+        });
+      });
+      // Perubahan Modal inputs
+      Object.values(inputsPerubahanModal).forEach(input => {
+        input.addEventListener('input', updateAll);
+      });
+    }
+
+    // Initial update and setup event listeners
+    updateAll();
+    setupListeners();
+  </script>
+</body>
+</html>
+
+```
+
